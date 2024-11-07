@@ -1,0 +1,26 @@
+class Employee:
+    id = 18924
+    name = input('Enter your name:   ')
+    department = 24
+    salary = 8000
+
+    def __init__(self):
+        print("Making a new employee")
+
+    def show_Details(self):
+        print("The details of student are:   ")
+        print('Name: ',self.name)
+        print('Department: ',self.department)
+        print('Salary: ',self.salary)
+
+    def changedetails(self):
+        print('Please update your age: ')
+        self.id = int(input())
+        print('Please update the name of the student: ')
+        self.name = input()
+        print('\n Details Updated')
+
+# print the id of employees
+print('Salary = ',Employee.salary,'\n')
+print(Employee.department,'\n')
+
