@@ -1,0 +1,29 @@
+import pygame
+import time
+pygame.init()
+screen = pygame.display.set_mode((600,600))
+pygame.display.set_caption('Birthday Card')
+run = True 
+
+while run:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False 
+    pygame.display.update()
+
+    img = pygame.image.load('BirthdayCard\Image20241212193908.jpg')
+    
+    font = pygame.font.SysFont("Times New Roman",72)
+    text = font.render("Happy",True,(0,225,0))
+    text2 = font.render("Birthday",True,(0,0,255))
+    screen.fill((255,255,255))
+    screen.blit(img,(0,0))
+    screen.blit(text,(200,200))
+    screen.blit(text2,(200,300))
+    pygame.display.update()
+    time.sleep(3)
+
+    # img2 = pygame.image.load('C:\Users\letna\OneDrive\Bureau\game dev  2\BirthdayCard\Image20241212193903.jpg')
+    # img3 = pygame.image.load('C:\Users\letna\OneDrive\Bureau\game dev  2\BirthdayCard\Image20241212193906.jpg')
+
+        
