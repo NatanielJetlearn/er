@@ -1,0 +1,66 @@
+import pygame
+screen = pygame.display.set_mode((600,600))
+#screen.fill((255,255,255))
+blue = ((0,0,255))
+green = ((0,255,0))
+red = ((255,0,0))
+black = ((0,0,0))
+yellow = ((255,255,0))
+any = ((109,208,77))
+screen.fill((255,255,255))
+run = True
+
+class mycircle:    
+    def __init__(self,color,position,radius,width):
+        self.clr = color 
+        self.pos = position 
+        self.rad = radius
+        self.wid = width 
+        self.scrn = screen
+    
+    # funct
+    def draw(self):
+        pygame.draw.circle(self.scrn,
+                           self.clr,
+                           self.pos, 
+                           self.rad, 
+                           self.wid)
+        
+    def grow(self,r):
+        self.rad = self.rad + r
+        pygame.draw.circle(self.scrn,
+                           self.clr,
+                           self.pos, 
+                           self.rad, 
+                           self.wid)
+
+
+positn = 300,300
+radi = 50
+wid = 2
+# creating objects of class mycircle
+redcircle = mycircle(red,positn,radi+40,wid)
+yellowcircle = mycircle(yellow,positn,radi,wid)
+bluecircle = mycircle(blue,positn,20,wid)
+greencircle = mycircle(green,positn,30,5)
+
+while run:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+        
+    if (event.type == pygame.MOUSEBUTTONDOWN):
+        redcircle.draw()
+        yellowcircle.draw()
+        pygame.display.update()
+
+    elif (event.type == pygame.MOUSEBUTTONUP):
+        redcircle.grow(2)
+        yellowcircle.grow(2)
+        pygame.display.update()
+        
+    elif (event.type == pygame.MOUSEMOTION):
+        position = pygame.mouse.get_pos()
+        blackcircle = mycircle(black,position,20,5)
+        blackcircle.draw()
+        pygame.display.update()
