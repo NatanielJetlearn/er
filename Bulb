@@ -1,0 +1,30 @@
+import pygame
+pygame.init()
+screen =  pygame.display.set_mode((600,600))
+pygame.display.set_caption('Lightbulb')
+screen.fill((255,255,255))
+run = True
+
+while run:
+    event = pygame.event.poll()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        bulboff = pygame.image.load('BulbSimulator/bulb off.jpg')
+        #to resize the img
+        bulboff_resize = pygame.transform.scale(bulboff,(300,300)) 
+        screen.blit(bulboff_resize,(180,180))
+        pygame.display.update()
+        
+    elif event.type == pygame.MOUSEBUTTONUP:
+        bulbon = pygame.image.load('BulbSimulator/bulb on.jpg')
+        bulbon_resize = pygame.transform.scale(bulbon,(300,300))
+        screen.blit(bulbon_resize,(180,180))
+        pygame.display.update()
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+        pygame.display.update()
+      
+      
+        
+
