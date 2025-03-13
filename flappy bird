@@ -1,0 +1,52 @@
+import pygame
+import random
+pygame.init()
+clock = pygame.time.Clock()
+fps = 60
+screen_width = 800
+screen_height = 600
+screen = pygame.display.set_mode()
+
+pygame.display.set_caption("Flappy Bird")
+font = pygame.font.SysFont('Bauhaus 93',60)
+white = (255,255,255)
+
+
+# game variables
+
+ground_scroll = 0
+scroll_speed = 5
+flying = False  
+game_over = False  
+pipe_frenquency = 1500
+last_pipe = pygame.time.get_ticks() - pipe_frenquency
+pass_pipe = False
+score = 0
+
+
+#load images
+bg = pygame.display.load("FlappyBird.py\img/bg.png")
+ground_img =  pygame.display.load("FlappyBird.py\img\ground.png")
+button_img = pygame.display.load("FlappyBird.py\img/restart.png")
+
+def draw_text(text,font,text_col,x ,y):
+    pass
+
+def reset_game():
+    pass
+
+class Bird(pygame.sprite.Sprite):
+    def __init__(self,x,y):
+        pygame.sprite.Sprite.__init__(self)
+        self.images = []
+        self.index = 0
+        self.counter = 0
+        for num in range(1,4):
+            img = pygame.image.load('FlappyBird.py\img/bird{num}.png')
+            self.images.append(img)
+        self.image = self.images[self.index]
+        self.rect = self.image.get_rect()
+        self.rect.center = [x,y]
+        self.vel = 0
+        self.clicked = False
+        
