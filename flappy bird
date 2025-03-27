@@ -4,7 +4,7 @@ pygame.init()
 clock = pygame.time.Clock()
 
 FPS = 60
-
+WIDTH = 800
 HEIGHT = 600
 screen = pygame.display.set_mode()
 
@@ -27,9 +27,9 @@ SCORE = 0
 
 
 #load images
-bg = pygame.display.load("FlappyBird.py\img\\bg.png")
-ground_img =  pygame.display.load("FlappyBird.py\img\ground.png")
-button_img = pygame.display.load("FlappyBird.py\img/restart.png")
+bg = pygame.image.load("FlappyBird.py\img\\bg.png")
+ground_img =  pygame.image.load("FlappyBird.py\img\ground.png")
+button_img = pygame.image.load("FlappyBird.py\img/restart.png")
 
 def draw_text(text,font,text_col,x ,y):
     screen.blit(font.render(text, True, text_col), (x,y))
@@ -68,7 +68,7 @@ class Bird(pygame.sprite.Sprite):
             if self.counter >5:
                 self.counter = 0
                 self.index = (self.index + 1) % len(self.images)
-            self.image = pygame.transfor.rotate(self.images[self.index], self.vel * -2)
+            self.image = pygame.transform.rotate(self.images[self.index], self.vel * -2)
         else:
             self.image = pygame.transform.rotate(self.images[self.index], -90)
 
@@ -87,6 +87,19 @@ class Pipe(pygame.sprite.Sprite):
         if self.rect.right < 0:
             self.kill() 
 
+class Button:
+    def __init__(self,x,y,image):
+        self.image = image
+        self.rect = self.image.get_rect(topleft=(x,y))
+    def draw(self):
+        pos = pygame.mouse.get_pos()
+        if self.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0]:
+            return True
+        screen.blit(self.image,self.rect)
+        return False
+    
+
+    
 
 
 
@@ -113,9 +126,9 @@ while running:
     bird_group.update()
     bird_group.draw(screen)
     #pipe_group.draw(screen)
-    draw_text(str(SCORE),FONT, WHITE,400,100)
+    draw_text(str(SCORE),FONT, WHITE,WIDTH//2,100)
     
-    for event in event.pygame.get():
+    for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN and not FLYING and not GAME_OVER:
