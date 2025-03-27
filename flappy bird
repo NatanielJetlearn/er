@@ -2,8 +2,9 @@ import pygame
 import random
 pygame.init()
 clock = pygame.time.Clock()
+
 FPS = 60
-WIDTH = 800
+
 HEIGHT = 600
 screen = pygame.display.set_mode()
 
@@ -26,7 +27,7 @@ SCORE = 0
 
 
 #load images
-bg = pygame.display.load("FlappyBird.py\img/bg.png")
+bg = pygame.display.load("FlappyBird.py\img\\bg.png")
 ground_img =  pygame.display.load("FlappyBird.py\img\ground.png")
 button_img = pygame.display.load("FlappyBird.py\img/restart.png")
 
@@ -97,3 +98,30 @@ bird_group = pygame.sprite.Group()
 # -- creating object---
 flappy = Bird(100, HEIGHT//2 )
 bird_group.add(flappy)
+
+
+#Game loop
+
+clock = pygame.time.Clock()
+running = True
+while running:
+    clock.tick(FPS)
+    screen.blit(bg,(0,0))
+    if not GAME_OVER and FLYING:
+        time_now = pygame.time.get_ticks()
+    #-------------------
+    bird_group.update()
+    bird_group.draw(screen)
+    #pipe_group.draw(screen)
+    draw_text(str(SCORE),FONT, WHITE,400,100)
+    
+    for event in event.pygame.get():
+        if event.type == pygame.QUIT:
+            running = False
+        if event.type == pygame.MOUSEBUTTONDOWN and not FLYING and not GAME_OVER:
+            FLYING = True
+    pygame.display.update()
+
+pygame.quit()
+    
+      
