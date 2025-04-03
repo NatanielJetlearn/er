@@ -106,11 +106,14 @@ class Button:
 
     #---- Sprite Group---  
 bird_group = pygame.sprite.Group()
-# pipe_group = pygame.sprite.Group()
+pipe_group = pygame.sprite.Group()
+
+
 
 # -- creating object---
 flappy = Bird(100, HEIGHT//2 )
 bird_group.add(flappy)
+restart_button = Button(WIDTH//2,HEIGHT//2,button_img)
 
 
 #Game loop
@@ -122,11 +125,29 @@ while running:
     screen.blit(bg,(0,0))
     if not GAME_OVER and FLYING:
         time_now = pygame.time.get_ticks()
+
+        if time_now - LAST_PIPE > PIPE_FREQUENCY:
+            pipe_height = random.randint(-100,100)
+            Pipe(WIDTH,HEIGHT//2 + pipe_height, -1).add(pipe_group)
+            Pipe(WIDTH,HEIGHT//2 + pipe_height, +1).add(pipe_group)
+            LAST_PIPE = time_now
+            
+        GROUND_SCROLL = (GROUND_SCROLL - SCROLL_SPEED) % 35
+        pipe_group.update()
+        screen.blit(ground_img,(GROUND_SCROLL,560))
     #-------------------
     bird_group.update()
     bird_group.draw(screen)
-    #pipe_group.draw(screen)
+    pipe_group.draw(screen)
     draw_text(str(SCORE),FONT, WHITE,WIDTH//2,100)
+    
+    if(pipe_group)\
+        and (flappy.rect.left > pipe_group.sprites()[0].rect.left)\
+              and (flappy.rect.right < pipe_group.sprites()[0].rect.left)\
+                and (not PASS_PIPE):
+        PASS_PIPE = True
+
+
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
